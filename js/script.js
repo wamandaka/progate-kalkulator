@@ -1,15 +1,31 @@
-let prevNumber = " ";
-let calculationOperator = " ";
-let currentNumber = "0";
-
 const layarKalkulator = document.querySelector(".layar-kalkulator");
 
 const perbaruiLayar = (number) => {
   layarKalkulator.value = number;
 };
-
 const numbers = document.querySelectorAll(".angka");
 // console.log(numbers);
+
+numbers.forEach((number) => {
+  //   console.log(number);
+  number.addEventListener("click", (event) => {
+    // console.log(event.target.value);
+    perbaruiLayar(event.target.value);
+    // perbaruiLayar(currentNumber);
+  });
+});
+
+let prevNumber = "";
+let calculationOperator = "";
+let currentNumber = "0";
+
+const inputNumber = (number) => {
+  if (currentNumber === "0") {
+    currentNumber = number;
+  } else {
+    currentNumber += number;
+  }
+};
 
 numbers.forEach((number) => {
   //   console.log(number);
@@ -19,14 +35,6 @@ numbers.forEach((number) => {
     perbaruiLayar(currentNumber);
   });
 });
-
-const inputNumber = (number) => {
-  if (currentNumber === "0") {
-    currentNumber = number;
-  } else {
-    currentNumber += number;
-  }
-};
 
 const operator = document.querySelectorAll(".operator");
 
@@ -59,21 +67,20 @@ const calculate = () => {
       result = parseFloat(prevNumber) + parseFloat(currentNumber);
       break;
     case "-":
-      result = parseFloat(prevNumber) - parseFloat(currentNumber);
+      result = prevNumber - currentNumber;
       break;
     case "*":
-      result = parseFloat(prevNumber) * parseFloat(currentNumber);
+      result = prevNumber * currentNumber;
       break;
     case "/":
-      result = parseFloat(prevNumber) / parseFloat(currentNumber);
+      result = prevNumber / currentNumber;
       break;
-
     default:
-      break;
+      return;
   }
 
   currentNumber = result;
-  calculationOperator = " ";
+  calculationOperator = "";
 };
 
 const clearBtn = document.querySelector(".hapus-semua");
@@ -94,6 +101,10 @@ desimal.addEventListener("click", (event) => {
   inputDecimal(event.target.value);
   perbaruiLayar(currentNumber);
 });
+
+inputDecimal = (dot) => {
+  currentNumber += dot;
+};
 
 inputDecimal = (dot) => {
   if (currentNumber.includes(".")) {
