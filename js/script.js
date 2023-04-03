@@ -50,7 +50,7 @@ const inputOperator = (operator) => {
     // return;
   }
   calculationOperator = operator;
-  currentNumber = "";
+  currentNumber = "0";
 };
 
 const samaDengan = document.querySelector(".sama-dengan");
